@@ -1,0 +1,322 @@
+body, html {
+
+    font-family: Arial, sans-serif;
+    color: #333;
+    
+}
+
+.login-box , .register-box {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f6f6;
+    width: 100%;
+}
+
+.container {
+    position: absolute;
+    padding: 50px 80px;
+    
+}
+
+.login-container , .register-container  {
+    background-color: white;
+    padding: 40px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    
+}
+
+.index-container {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.create-container {
+    max-width: 600px;
+    width: 60%;
+    }
+
+
+h1 {
+    font-size: 28px;
+    font-weight: 300;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+
+/*ボタン*/
+.btn {
+    margin: 0;
+    font-weight: 300;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border: none;
+    box-sizing: border-box;
+    align-items: center; 
+}
+
+.button-group {
+    display: flex;
+    margin-top: 15px;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+    width: 100%;
+}
+
+.btn-register, .btn-login {
+    flex: 1;
+    display: inline-block;
+    width: 100%;
+    border-radius: 25px;
+    font-size: 14px;
+    padding: 12px 4px;
+}
+
+.submit-btn {
+    border: 1px solid #858585;
+    background-color: #fff;
+    width: 20%;
+    padding: 5px 10px;
+}
+
+.btn-add-product {
+    display: block;
+    border-radius: 2px;
+    padding: 5px 10px;
+}
+
+.btn-register , .btn-add-product , .btn-product-create {
+    background-color: #FD8901;
+}
+
+.btn-register:hover , .btn-add-product:hover , .btn-product-create:hover {
+    background-color: #c36f0f;
+}
+
+.btn-login , .btn-index{
+    background-color: #00F4FC;
+}
+
+.btn-login:hover , .btn-index:hover {
+    background-color: #00dee6;
+}
+
+@media (max-width:768px) {
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    a , button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+/**/
+
+.login-container input , .register-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 30px;
+    box-sizing: border-box; 
+    border: 1px solid #333;
+}
+
+
+.index-container h1 , .create-container h1 {
+    text-align: left;
+}
+
+/* index */
+.search-group {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.search-group input , .search-group select {
+    display: flex;
+    padding: 0px 12px;
+    border: 0.8px solid #858585;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #333; /* プレースホルダーテキストの色を黒に設定 */
+}
+
+
+.table {
+    border: 1px solid #858585;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th {
+    white-space: nowrap;
+    gap: 20px;
+    padding: 15px;
+}
+
+.table thead {
+    border-bottom: 1px solid #858585;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    height: 50px;
+}
+
+.table td img {
+    max-width: 50px;         /* 画像サイズ */
+    height: auto;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.table td .table-btn {
+    display: flex;             /* ボタンにのみflexboxを適用 */
+    justify-content: center;   /* 横方向に中央揃え */
+    align-items: center;       /* 縦方向に中央揃え */
+}
+
+.table-btn {
+    gap: 10px; /* ボタン同士の間隔を調整 */
+}
+
+.info-btn , .danger-btn {
+    font-size: 12px;
+    border-radius: 2px;
+    padding: 6px 8px;
+    width: auto;
+    display: inline-block;
+    box-sizing: border-box;
+    
+}
+
+.info-btn {
+    background-color: #0AC6FE;
+    color: #333;
+}
+
+.info-btn:hover {
+    background-color: #07a0cf;
+}
+
+.danger-btn {
+    background-color: #FF2022;
+    color: #fff;
+}
+
+.danger-btn:hover {
+    background-color: #c21619;
+}
+
+
+.product {
+    border: 1px solid #858585;
+    vertical-align: middle;
+}
+
+.odd-row {
+    background-color:#D8D5D5;
+}
+/**/
+
+/*create*/
+
+
+/* ページネーション*/
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center; /* 中央に配置 */
+}
+
+.pagination-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    margin: 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination-item:hover {
+    text-decoration: underline; /* 下線を追加 */
+}
+
+/* 現在のページ */
+.pagination-current {
+    color: #333;
+    cursor: default;
+}
+
+.pagination-current:hover {
+    text-decoration: none;
+}
+
+/* 無効なボタン（前のページ・次のページが無効なとき） */
+.pagination-item.disabled {
+    cursor: not-allowed;
+    color: #ccc;
+    background-color: #f9f9f9;
+    border-color: #e2e2e2;
+}
+
+/* 小さなスクリーンでページネーションを縦に表示 */
+@media (max-width: 600px) {
+    .pagination-item {
+        display: block;
+        margin: 4px 0;
+    }
+}
+/**/
+.form {
+    border: 1px solid #333;
+    border-radius: 2px;
+}
+.form-group {
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: 40px;
+    min-width: 100px;
+    text-align: left;
+    display: block;
+    position: relative;
+}
+.required {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 2px;
+    bottom: 3px;
+    position: absolute;
+}
+

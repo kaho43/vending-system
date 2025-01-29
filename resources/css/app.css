@@ -1,3 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 入力フィールドの枠線を表示 */
+input.form-control {
+    border: 1px solid #ccc; /* 枠線を薄いグレーに設定 */
+    border-radius: 4px;      /* 角を丸める */
+    padding: 0.5rem;         /* パディングを設定 */
+}

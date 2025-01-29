@@ -214,4 +214,10 @@ return [
 
     'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
 
+    'driver' => 'database',
+    'lifetime' => 120, // セッションの有効期限（分単位）
+    'expire_on_close' => false,
+
+
+
 ];
