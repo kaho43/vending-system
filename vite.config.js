@@ -8,35 +8,32 @@ export default defineConfig({
     vue(),
     laravel({
       input: [
-        'resources/js/app.js', 
-        'resources/css/app.css', 
-        'resources/css/style.css' // style.css をここで追加
+        'resources/js/app.js',
+        'resources/sass/app.scss',  // ここで app.scss を指定
+        'resources/css/style.css',  // 他の CSS を指定
+        'resources/css/app.css',
+        'resources/js/script.js'
       ],
       refresh: true,
     }),
   ],
   build: {
-    outDir: 'public/build',  // 出力先ディレクトリ
-    assetsDir: 'assets',     // アセット格納場所
-    manifest: true,          // manifest.json を生成
-    rollupOptions: {
-      input: {
-        app: 'resources/js/app.js', // 既存のエントリーファイル
-        script: 'resources/js/script.js', // 新たに追加
-        css_app: 'resources/css/app.css', // app.css を指定
-        css_style: 'resources/css/style.css', // style.css を追加で指定
-      },
-    },
+    outDir: 'public/build',
+    assetsDir: 'assets',
+    manifest: true,
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'resources/js'), // 'resources/js' へのエイリアス
+      '@': path.resolve(__dirname, 'resources/js'),
     },
   },
   server: {
     proxy: {
-      '/': 'http://localhost',  // Laravelサーバーへのプロキシ設定
+      '/': 'http://localhost',
     },
-    port: 8080, // 同じポートを使用
+    port: 3000,
+    roxy: {
+      '/vending-system': 'http://localhost:8080', // Laravelのバックエンドにリクエストを渡す
+    },
   },
 });

@@ -33,14 +33,12 @@ body, html {
 }
 
 .index-container {
-    max-width: 600px;
-    width: 100%;
+    width: 600px;
     text-align: center;
 }
 
-.create-container {
-    max-width: 600px;
-    width: 60%;
+.create-container , .show-container , .edit-container {
+    width: 450px;
     }
 
 
@@ -96,28 +94,37 @@ h1 {
     padding: 5px 10px;
 }
 
-.btn-register , .btn-add-product , .btn-product-create {
+.btn-product-create , .btn-index , .btn-warning , .btn-primary , .btn-update , .btn-secondary {
+    display: inline-block;
+    border-radius: 2px;
+    padding: 5px 10px;
+    margin-left: 40px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.btn-register , .btn-add-product , .btn-product-create , .btn-warning , .btn-update {
     background-color: #FD8901;
 }
 
-.btn-register:hover , .btn-add-product:hover , .btn-product-create:hover {
+.btn-register:hover , .btn-add-product:hover , .btn-product-create:hover , .btn-warning:hover , .btn-update:hover {
     background-color: #c36f0f;
 }
 
-.btn-login , .btn-index{
+.btn-login , .btn-index , .btn-primary , .btn-secondary {
     background-color: #00F4FC;
 }
 
-.btn-login:hover , .btn-index:hover {
+.btn-login:hover , .btn-index:hover , .btn-primary:hover , .btn-secondary:hover {
     background-color: #00dee6;
 }
 
 @media (max-width:768px) {
-    .button-group {
+    .user-button-group {
         flex-direction: column;
         gap: 15px;
     }
-    a , button {
+    .user-button-group a , .user-button-group button {
         width: 100%;
         box-sizing: border-box;
     }
@@ -302,7 +309,7 @@ input::placeholder {
     align-items: center;
 }
 
-.form-group label {
+.form-label {
     font-weight: bold;
     margin-right: 20px;
     margin-left: 40px;
@@ -311,6 +318,22 @@ input::placeholder {
     display: block;
     position: relative;
 }
+
+.form-control, .form-group select {
+    width: 50%;
+    padding: 4px !important;
+    border: 1px solid #858585 !important;
+    border-radius: 2px!important;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.form-group select {
+    background-color: #fff;
+    cursor: pointer;
+    padding-right: 30px;
+}
+
 .required {
     color: red;
     font-size: 18px;
@@ -320,3 +343,13 @@ input::placeholder {
     position: absolute;
 }
 
+.show-label th , .show-label td {
+    text-align: left;
+    vertical-align: middle;
+    padding: 8px 20px 8px 40px; /* 左の余白を調整 */
+}
+
+.pagination {
+    padding: 4px;
+    font-size: 14px;
+}

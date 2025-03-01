@@ -20,6 +20,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Cookie\Middleware\EncryptCookies::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ];
 

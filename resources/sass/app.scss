@@ -1,7 +1,5 @@
-// フォントはHTMLで読み込む
+// 変数ファイルのインポート
+@use 'variables' as *;  // 変数やミックスインをグローバルに使用
 
-// Variables
-@use 'variables';
-
-// Bootstrap
-@use 'bootstrap/scss/bootstrap';
+// Bootstrapのインポート
+@use 'bootstrap/scss/bootstrap';  // node_modules からBootstrapをインポート

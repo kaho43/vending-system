@@ -17,16 +17,19 @@
                 <!-- 検索フォーム -->
                 <form method="GET" action="{{ route('products.index') }}">
                     <div class="search-group">
-                        <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('name') }}">
-                        <select name="manufacturer" id="manufacturer">                           
-                            <option value="">メーカー名</option>
-                            @foreach ($companies as $company)
-                                <option value="{{ $company->id }}"> {{ $company->company_name }}></option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn submit-btn">検索</button>
-                    </div>
-                </form>
+                        <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('keyword') }}">
+        <select name="manufacturer" id="manufacturer">
+            <option value="">メーカー名</option>
+            @foreach ($companies as $company_name)
+                <option value="{{ $company_name }}" {{ request('manufacturer') == $company_name ? 'selected' : '' }}>
+                    {{ $company_name }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit" class="btn submit-btn">検索</button>
+    </div>
+</form>
+
 
                 <br>
                 <!-- 商品一覧テーブル -->
@@ -80,14 +83,13 @@
                 </table>
                 <!-- ページネーションリンク -->
                 <div class="pagination-container">
-                @if ($products->hasPages())
                     <nav role="navigation" aria-label="Pagination Navigation" class="pagination-nav">
                         <ul class="pagination">
                             <!-- ページ番号 -->
-                            {!! $products->links() !!}
+                                {{ $products->links('vendor.pagination.custom') }}
                         </ul>
                     </nav>
-                @endif
+                </div>
             </div>
 
         @endsection

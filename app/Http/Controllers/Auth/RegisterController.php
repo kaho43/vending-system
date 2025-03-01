@@ -20,7 +20,7 @@ class RegisterController extends Controller
         // バリデーション
         $validated = $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
         ]);
 
         // ユーザー登録（nameフィールドは不要）

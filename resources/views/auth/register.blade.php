@@ -19,7 +19,7 @@
                     <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="メールアドレス" required>
 
                     <!-- 新規登録ボタン -->
-                    <div class="button-group">
+                    <div class="button-group user-button-group">
                         <button type="submit" class="btn btn-register">新規登録</button>
                         <a href="{{ route('login') }}" class="btn btn-login">戻る</a>
                     </div>

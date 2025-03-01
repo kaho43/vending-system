@@ -13,24 +13,24 @@ class ProductController extends Controller
         $query = Product::with('company');
 
         // 商品名でのフィルタリング
-        if ($request->filled('name')) {
-            $query->where('product_name', 'like', '%' . $request->name . '%');
+        if ($request->filled('keyword')) {
+            $query->where('product_name', 'like', '%' . $request->keyword . '%');
         }
 
         // 企業名でのフィルタリング
-        if ($request->filled('company_name')) {
+        if ($request->filled('manufacturer')) {
             $query->whereHas('company', function ($q) use ($request) {
-                $q->where('company_name', $request->company_name);
+                $q->where('company_name', $request->manufacturer);
             });
         }
 
         // データをソートし、ページネーションを適用
-        $products = $query->orderBy('product_name', 'asc')->paginate(10);
+        $products = $query->orderBy('product_name', 'asc')->paginate(5);
 
-        // 企業情報を取得
-        $companies = Company::all();
 
-        dd($companies->toArray());
+// 企業情報（company_name）のみ取得
+$companies = Company::all()->pluck('company_name');
+
         // ビューにデータを渡す
         return view('products.index', ['products' => $products, 'companies' => $companies]);
 

@@ -18,7 +18,7 @@
                     <input type="email" name="email" id="email" placeholder="メールアドレス" required>
 
                     <!-- 新規登録ボタン -->
-                    <div class="button-group">
+                    <div class="button-group user-button-group">
                         <a href="{{ route('register') }}" class="btn btn-register">新規登録</a>
                         <button type="submit" class="btn btn-login">ログイン</button>
                     </div> 

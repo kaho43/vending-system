@@ -25,7 +25,8 @@ class LoginController extends Controller
     {
         // すでにログインしている場合、ホームページにリダイレクト
         if (Auth::check()) {
-        return redirect('/home'); // ホームページやダッシュボードに変更
+            logger('User is already logged in. Redirecting to /home');
+            return redirect('/home'); // ホームページやダッシュボードに変更
         }
 
         return view('auth.login');
@@ -44,8 +45,14 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             logger('Login successful for user: ' . $request->email);
+            logger('Redirecting to: /products');
             return redirect()->intended('/products');
+        } else {
+            // 失敗した理由をより詳しくロギング
+            logger('Login failed for user: ' . $request->email . ', credentials: ' . json_encode($credentials));
+            return back()->withErrors(['email' => 'メールアドレスまたはパスワードが間違っています']);
         }
+        
 
         logger('Login failed for user: ' . $request->email);
         return back()->withErrors(['email' => 'メールアドレスまたはパスワードが間違っています']);
