@@ -14,11 +14,10 @@ class ModifySalesTableId extends Migration
     public function up()
     {
         Schema::table('sales', function (Blueprint $table) {
-            // 現在の id を削除
-            $table->dropColumn('id');
-            
-            // 新しい int 型の id を追加
-            $table->increments('id')->unsigned()->first(); // オートインクリメントとして設定
+            // すでに `id` カラムがある場合は処理しない
+            if (!Schema::hasColumn('sales', 'id')) {
+                $table->bigIncrements('id')->first(); // `bigIncrements` に統一
+            }
         });
     }
 
@@ -30,8 +29,11 @@ class ModifySalesTableId extends Migration
     public function down()
     {
         Schema::table('sales', function (Blueprint $table) {
-            // id カラムを再度 bigint 型で追加
-            $table->bigIncrements('id')->unsigned()->first();
+            // `id` を元の `increments` に戻す
+            if (Schema::hasColumn('sales', 'id')) {
+                $table->dropColumn('id'); // まず削除
+                $table->increments('id')->first(); // 再追加
+            }
         });
     }
 }
