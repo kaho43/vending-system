@@ -15,6 +15,16 @@
 
             <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data" class="form">
             @csrf
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
                 <div class="form-group">
                     <label for="product_name" class="form-label">商品名<span class="required">＊</label>
                     <input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required>
