@@ -19,12 +19,12 @@
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
                 <!-- 検索フォーム -->
-<<<<<<< HEAD
+
                 <form id="search-form" action="{{ route('products.search') }}" method="GET">
-=======
+
                 <form id="search-form" action="{{ route('products.search') }}" method="POST">
                 @csrf
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
+
                     <div class="search-group">
                         <input type="text" name="keyword" placeholder="検索キーワード" value="{{ request('keyword') }}">
                         <select name="company_name" id="company_name">
@@ -65,14 +65,13 @@
             </div>
                         
             <script>    
-<<<<<<< HEAD
-=======
+
             $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
+
                 // 検索フォームの送信をAJAXで行う
                 $('#search-form').on('submit', function(e) {
                     e.preventDefault(); // 通常のフォーム送信を防止
@@ -81,11 +80,11 @@
 
                     $.ajax({
                         url: '{{ route('products.search') }}', // 検索のURL
-<<<<<<< HEAD
+
                         method: 'GET',
-=======
+
                         method: 'POST',
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
+
                         data: formData,
                         success: function(response) {
                             console.log(response); // ここでレスポンスを確認

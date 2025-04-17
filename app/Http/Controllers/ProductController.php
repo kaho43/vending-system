@@ -16,8 +16,7 @@ class ProductController extends Controller
 
         // ソート順の取得（デフォルトはid降順）
         $sort = $request->input('sort', 'id');
-        $direction =$request->input('direction', 'desc');
-
+        $direction = $request->input('direction', 'desc');
 
         // キーワード検索
         if ($request->filled('keyword')) {
@@ -47,7 +46,7 @@ class ProductController extends Controller
             $query->where('stock', '<=', $request->stock_max);
         }
 
-         // 指定されたカラムがテーブルに存在するか確認
+        // 指定されたカラムがテーブルに存在するか確認
         $validColumns = ['id', 'product_name', 'price', 'stock']; // company_name を含めない
         if (!in_array($sort, $validColumns)) {
             $sort = 'id'; // 不正なカラムが指定された場合はデフォルトに戻す
@@ -56,24 +55,18 @@ class ProductController extends Controller
         // データをソートし、ページネーションを適用
         $products = $query->orderBy($sort, $direction)->paginate(5);
 
-
         // 企業情報（company_name）のみ取得
         $companies = Company::all();
 
         // ビューにデータを渡す
         return view('products.index', compact('products', 'companies', 'sort', 'direction'));
-
     }
-
-
 
     public function create()
     {
         $companies = Company::all();
         return view('products.create', compact('companies'));
     }
-
-
 
     public function show($id)
     {
@@ -82,21 +75,10 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
-
-<<<<<<< HEAD
-    public function store(ProductRequest $request) 
-    {
-
-                // バリデーション済みデータを取得
-                $validated = $request->validated();
-        // 新しい商品を作成
-=======
     public function store(ProductRequest $request)
     {
-
         // バリデーションを通過した後、商品登録処理を実行
         $validated = $request->validated();
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
         $product = Product::create($validated);
 
         // 画像がアップロードされている場合
@@ -109,7 +91,21 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', '商品を登録しました。');
     }
 
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $validated = $request->validated();
 
+        // 画像パスの更新
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store('images', 'public');
+            $product->image_path = $imagePath;
+        }
+
+        $product->save();
+
+        return redirect()->route('products.index')->with('success', '商品情報が更新されました');
+    }
 
     public function edit($id)
     {
@@ -121,43 +117,17 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'companies'));
     }
 
-
-
-    public function update(Request $request, $id)
-    {
-        $product = Product::findOrFail($id);
-        $validated = $request->validated();
-
-<<<<<<< HEAD
-=======
-
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
-        if ($request->hasFile('image_path')) {
-            $imagePath = $request->file('image_path')->store('images', 'public');
-            $product->image_path = $imagePath;
-        }
-
-        $product->save();
-
-        return redirect()->route('products.index')->with('success', '商品情報が更新されました');
-    }
-
-
-
     public function search(Request $request)
     {
         // $sort 変数を定義する
-    $sort = $request->get('sort', 'default_value'); // 必要に応じて適切な値に調整
-<<<<<<< HEAD
-    
+        $sort = $request->get('sort', 'default_value'); // 必要に応じて適切な値に調整
+
         $keyword = $request->input('keyword');
         $companyName = $request->input('company_name'); 
         $priceMin = $request->input('price_min');
         $priceMax = $request->input('price_max');
         $stockMin = $request->input('stock_min');
         $stockMax = $request->input('stock_max');
-=======
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
 
         $query = Product::query();
 
@@ -168,7 +138,7 @@ class ProductController extends Controller
 
         // メーカー名検索
         if (!empty($companyName)) {
-            $query->whereHas('company', function($query) use ($companyName){
+            $query->whereHas('company', function($query) use ($companyName) {
                 $query->where('company_name', 'LIKE', "%{$companyName}%");
             });
         }
@@ -198,24 +168,21 @@ class ProductController extends Controller
             // AJAXレスポンスとしてHTMLとページネーションを返す
             $html = view('products.partials.product_list', compact('products', 'sort'))->render();
             return response()->json(['html' => $html]);
-
         }   
 
-    return view('products.index', compact('products', 'companies'));
+        return view('products.index', compact('products', 'companies'));
     }
 
     public function destroy($id): JsonResponse
     {
         $product = Product::find($id);
-    
+
         if (!$product) {
             return response()->json(['success' => false, 'message' => '商品が見つかりませんでした。']);
         }
-    
+
         $product->delete();
-    
+
         return response()->json(['success' => true, 'message' => '商品が削除されました。']);
     }
-    
-
 }

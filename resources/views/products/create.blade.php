@@ -14,10 +14,8 @@
             <h1>商品新規登録画面</h1>
 
             <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data" class="form">
-<<<<<<< HEAD
-=======
             @csrf
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
+
             @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -27,11 +25,9 @@
         </ul>
     </div>
 @endif
-<<<<<<< HEAD
-@csrf
-=======
 
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
+@csrf
+
                 <div class="form-group">
                     <label for="product_name" class="form-label">商品名<span class="required">＊</label>
                     <input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required>
