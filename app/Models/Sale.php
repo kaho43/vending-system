@@ -15,9 +15,12 @@ class Sale extends Model
     // ホワイトリスト（Mass Assignment）で扱うカラム
     protected $fillable = [
         'product_id',
+<<<<<<< HEAD
         'quantity',
         'total_price', // 例: 合計金額
         'sale_date',    // 例: 売上日
+=======
+>>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
     ];
 
     // タイムスタンプを使用する

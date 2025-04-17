@@ -83,12 +83,20 @@ class ProductController extends Controller
     }
 
 
+<<<<<<< HEAD
     public function store(ProductRequest $request) 
     {
 
                 // バリデーション済みデータを取得
                 $validated = $request->validated();
         // 新しい商品を作成
+=======
+    public function store(ProductRequest $request)
+    {
+
+        // バリデーションを通過した後、商品登録処理を実行
+        $validated = $request->validated();
+>>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
         $product = Product::create($validated);
 
         // 画像がアップロードされている場合
@@ -118,7 +126,12 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        $validated = $request->validated();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
         if ($request->hasFile('image_path')) {
             $imagePath = $request->file('image_path')->store('images', 'public');
             $product->image_path = $imagePath;
@@ -135,6 +148,7 @@ class ProductController extends Controller
     {
         // $sort 変数を定義する
     $sort = $request->get('sort', 'default_value'); // 必要に応じて適切な値に調整
+<<<<<<< HEAD
     
         $keyword = $request->input('keyword');
         $companyName = $request->input('company_name'); 
@@ -142,6 +156,8 @@ class ProductController extends Controller
         $priceMax = $request->input('price_max');
         $stockMin = $request->input('stock_min');
         $stockMax = $request->input('stock_max');
+=======
+>>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
 
         $query = Product::query();
 

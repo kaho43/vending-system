@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PurchaseController;
+<<<<<<< HEAD
 
 Route::post('/api/purchase', [PurchaseController::class, 'purchase']);
+=======
+>>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
 
 Route::get('/', function () {
     return view('welcome');
