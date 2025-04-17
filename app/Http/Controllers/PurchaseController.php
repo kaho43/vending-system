@@ -11,7 +11,12 @@ class PurchaseController extends Controller
 {
     public function purchase(Request $request)
     {
-<<<<<<< HEAD
+        // バリデーション
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
 
@@ -33,6 +38,7 @@ class PurchaseController extends Controller
             // salesテーブルに購入記録を追加
             Sale::create([
                 'product_id' => $productId,
+                'quantity' => $quantity,  // 購入数量も保存するように変更
             ]);
 
             DB::commit();
@@ -43,28 +49,3 @@ class PurchaseController extends Controller
         }
     }
 }
-=======
-        // バリデーション
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
-        ]);
-    
-        // 商品の取得
-        $product = Product::findOrFail($request->product_id);
-    
-        // 在庫数を減らす
-        if ($product->stock < $request->quantity) {
-            return response()->json(['message' => '在庫不足です。'], 400);
-        }
-    
-        // 在庫を減らす処理
-        $product->stock -= $request->quantity;
-        $product->save();
-    
-        return response()->json(['message' => '購入処理が成功しました。'], 200);
-    }
-    
-
-}
->>>>>>> c14ef3dc484c949efe42d674b823fcfe64eda848
