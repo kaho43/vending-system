@@ -11,34 +11,26 @@ class PurchaseController extends Controller
 {
     public function purchase(Request $request)
     {
-        $productId = $request->input('product_id');
-        $quantity = $request->input('quantity');
-
-        DB::beginTransaction();
-
-        try {
-            // 商品の在庫を取得
-            $product = Product::findOrFail($productId);
-
-            // 在庫数の確認
-            if ($product->stock < $quantity) {
-                return response()->json(['error' => '在庫が足りません'], 400);
-            }
-
-            // 在庫数の減算
-            $product->stock -= $quantity;
-            $product->save();
-
-            // salesテーブルに購入記録を追加
-            Sale::create([
-                'product_id' => $productId,
-            ]);
-
-            DB::commit();
-            return response()->json(['message' => '購入処理が成功しました']);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => '購入処理に失敗しました'], 500);
+        // バリデーション
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+    
+        // 商品の取得
+        $product = Product::findOrFail($request->product_id);
+    
+        // 在庫数を減らす
+        if ($product->stock < $request->quantity) {
+            return response()->json(['message' => '在庫不足です。'], 400);
         }
+    
+        // 在庫を減らす処理
+        $product->stock -= $request->quantity;
+        $product->save();
+    
+        return response()->json(['message' => '購入処理が成功しました。'], 200);
     }
+    
+
 }
