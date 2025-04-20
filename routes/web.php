@@ -6,8 +6,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PurchaseController;
 
 
-Route::post('/api/purchase', [PurchaseController::class, 'purchase']);
-
 
 Route::get('/', function () {
     return view('welcome');

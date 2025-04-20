@@ -72,13 +72,26 @@ h1 {
     width: 100%;
 }
 
-.btn-register, .btn-login {
+.btn-register, .btn-login  {
     flex: 1;
     display: inline-block;
     width: 100%;
     border-radius: 25px;
     font-size: 14px;
     padding: 12px 4px;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+
+.btn-logout {
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 30px;
+    margin-bottom: 0px;
 }
 
 .submit-btn {
@@ -103,7 +116,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.btn-register , .btn-add-product , .btn-product-create , .btn-warning , .btn-update {
+.btn-register , .btn-add-product , .btn-product-create , .btn-warning , .btn-update  {
     background-color: #FD8901;
 }
 
@@ -117,6 +130,15 @@ h1 {
 
 .btn-login:hover , .btn-index:hover , .btn-primary:hover , .btn-secondary:hover {
     background-color: #00dee6;
+}
+
+.btn-logout:hover , .search-submit-btn {
+    background-color: #7e7e7e;
+    color: #fff;
+}
+
+.search-submit-btn:hover {
+    background-color: #464646;
 }
 
 @media (max-width:768px) {
@@ -144,21 +166,77 @@ h1 {
     text-align: left;
 }
 
+.header-search {
+    display: flex;
+    flex-direction: column; /* ← これを追加！縦並びにする */
+    align-items: flex-start; /* 左揃え */
+    gap: 20px; /* 要素間にスペースを作る（任意） */
+}
+
+
 /* index */
 .search-group {
     display: flex;
-    gap: 10px;
-    font-size: 12px;
+    flex-direction: column; /* これが肝心！ */
+    gap: 20px;
     width: 100%;
 }
 
-.search-group input , .search-group select {
+.company-search-area {
     display: flex;
-    padding: 0px 12px;
-    border: 0.8px solid #858585;
-    width: 80%;
-    box-sizing: border-box;
+    gap: 20px;
+
 }
+
+.company-search-area input,
+.company-search-area select {
+    flex: 1;
+    padding: 12px 150px 12px 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: 2px;
+    box-sizing: border-box;
+    width: 100%;  /* 幅を100%に設定 */
+}
+
+.number-search-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+
+.price-range,
+.stock-range {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+}
+
+.price-range input,
+.stock-range input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 2px;
+    font-size: 12px;
+}
+
+.search-submit-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    color: white;
+    border: none;
+    width: 100px;
+    align-self: flex-end;
+}
+
+
+
 
 input::placeholder {
     color: #333; /* プレースホルダーテキストの色を黒に設定 */

@@ -15,7 +15,6 @@ class Sale extends Model
     // ホワイトリスト（Mass Assignment）で扱うカラム
     protected $fillable = [
         'product_id',
-        'quantity',
         'total_price', // 例: 合計金額
         'sale_date',    // 例: 売上日
 

@@ -45,7 +45,8 @@ class PurchaseController extends Controller
             return response()->json(['message' => '購入処理が成功しました']);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => '購入処理に失敗しました'], 500);
-        }
+            \Log::error("購入処理エラー: " . $e->getMessage());
+        return response()->json(['error' => '購入処理に失敗しました', 'details' => $e->getMessage()], 500);
+    }
     }
 }
