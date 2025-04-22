@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Company;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -77,34 +78,56 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        // バリデーションを通過した後、商品登録処理を実行
-        $validated = $request->validated();
-        $product = Product::create($validated);
-
-        // 画像がアップロードされている場合
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $product->image_path = $path;
-            $product->save(); // 画像パスを保存
+        DB::beginTransaction();
+        
+        try {
+            // バリデーションを通過した後、商品登録処理を実行
+            $validated = $request->validated();
+            $product = Product::create($validated);
+    
+            // 画像がアップロードされている場合
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images', 'public');
+                $product->image_path = $path;
+                $product->save(); // 画像パスを保存
+            }
+    
+            DB::commit(); // コミット
+            return redirect()->route('products.index')->with('success', '商品を登録しました。');
+        } catch (\Exception $e) {
+            DB::rollBack(); // ロールバック
+            return back()->withErrors('エラーが発生しました。');
         }
-
-        return redirect()->route('products.index')->with('success', '商品を登録しました。');
     }
 
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        $product = Product::findOrFail($id);
-        $validated = $request->validated();
+        DB::beginTransaction();
 
-        // 画像パスの更新
-        if ($request->hasFile('image_path')) {
-            $imagePath = $request->file('image_path')->store('images', 'public');
-            $product->image_path = $imagePath;
+        try {
+            $product = Product::findOrFail($id);
+            $validated = $request->validated();
+
+            // 基本情報の更新
+            $product->product_name = $validated['product_name'];
+            $product->company_id = $validated['company_id'];
+            $product->price = $validated['price'];
+            $product->stock = $validated['stock'];
+            $product->comment = $validated['comment'] ?? null;
+
+            // 画像の更新
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+                $product->image_path = $imagePath;
+            }
+
+            $product->save();
+            DB::commit(); // コミット
+            return redirect()->route('products.index')->with('success', '商品情報が更新されました');
+        } catch (\Exception $e) {
+            DB::rollBack(); // ロールバック
+            return back()->withErrors('エラーが発生しました。');
         }
-
-        $product->save();
-
-        return redirect()->route('products.index')->with('success', '商品情報が更新されました');
     }
 
     public function edit($id)
@@ -175,14 +198,21 @@ class ProductController extends Controller
 
     public function destroy($id): JsonResponse
     {
-        $product = Product::find($id);
+        DB::beginTransaction();
 
-        if (!$product) {
-            return response()->json(['success' => false, 'message' => '商品が見つかりませんでした。']);
+        try {
+            $product = Product::find($id);
+    
+            if (!$product) {
+                return response()->json(['success' => false, 'message' => '商品が見つかりませんでした。']);
+            }
+    
+            $product->delete();
+            DB::commit(); // コミット
+            return response()->json(['success' => true, 'message' => '商品が削除されました。']);
+        } catch (\Exception $e) {
+            DB::rollBack(); // ロールバック
+            return response()->json(['success' => false, 'message' => '削除処理に失敗しました。']);
         }
-
-        $product->delete();
-
-        return response()->json(['success' => true, 'message' => '商品が削除されました。']);
     }
 }
